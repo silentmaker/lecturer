@@ -1,2 +1,3 @@
 ## Lecturer
-### My Presentations, powered by reveal.js
+
+[My Presentations](https://silentmaker.github.io/lecturer/#/)
