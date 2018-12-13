@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Basics Of Animations</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="shortcut icon" href="../../favicon.ico">
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/league.css" id="theme">
+		
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<h2>Basics Of Animations</h2>
+					<small>-- Elvin</small>
+				</section>
+
+				<section>
+                    <h2>FPS</h2>
+                    <h3>Frames Per Second</h3>
+                    <p><small>Devtools -> Rendering -> FPS meter</small></p>
+                    <img width="360" src="https://aerotwist.com/static/blog/the-anatomy-of-a-frame/fps-meter.jpg" alt="">
+                </section>
+
+				<section>
+                    <h2>An Animation Loop</h2>
+                    <pre><code class="hljs" data-trim contenteditable>
+const targetFPS = 60;
+
+function animate() {
+    // do stuff
+
+    setTimeout(() => {
+        animate();
+    }, 1000 / targetFPS);
+}
+                    </code></pre>
+                    <p class="fragment">Is This Recommended?</p>
+                    <p class="fragment fade-in">NO</p>
+                </section>
+
+				<section>
+                    <h3>Event Loop & Render/Task/MicroTask Queue ...</h3>
+                    <img width="600" src="http://prashantb.me/content/images/2017/01/js_runtime.png" alt="">
+                </section>
+
+                <section>
+                    <h2>Pipeline</h2>
+                    <h3>What Happens In One Frame</h3>
+                    <img width="600" src="https://developers.google.com/web/fundamentals/performance/rendering/images/debounce-your-input-handlers/frame-with-input.jpg" alt="">
+                    <p><a target="_blank" href="https://csstriggers.com/">Triggers</a></p>
+                </section>
+
+                <section>
+                    <h2>So...</h2>
+                    <h3>What Happens to SetTimeout</h3>
+                    <img width="450" src="https://developers.google.com/web/fundamentals/performance/rendering/images/optimize-javascript-execution/settimeout.jpg" alt="">
+                </section>
+
+                <section>
+                    <h2>Better Pattern</h2>
+                    <pre><code class="hljs" data-trim contenteditable>
+requestAnimationFrame(animate);
+
+function animate() {
+    calc();
+    paint();
+    requestAnimationFrame(animate);
+}
+                    </code></pre>
+                    <img src="https://developers.google.com/web/updates/images/inside-browser/part3/raf.png" alt="">
+                </section>
+
+                <section>
+                    <h2>Layers</h2>
+                    <h3>Seperated Layer For Animation</h3>
+                    <p><small>Devtools -> Layers</small></p>
+                    <img width="400" src="https://developers.google.com/web/fundamentals/performance/rendering/images/simplify-paint-complexity-and-reduce-paint-areas/layers.jpg" alt="">
+                </section>
+
+                <section data-background="#333">
+                    <h3>Animation & Game</h3>
+                    <a target="_blank" href="https://silentmaker.github.io/weather-canvas/">Weathers In Canvas</a>
+                    <hr>
+					<img src="../../images/doodle-qrcode.png" alt="">
+					<p>Doodle Jump</p>
+                </section>
+
+                <section data-background="http://i.giphy.com/90F8aUepslB84.gif">
+                    <h2>The end.</h2>
+                </section>
+
+			</div>
+		</div>
+
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/search/search.js', async: true },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+
+	</body>
+</html>
